@@ -47,6 +47,8 @@ jobs:
       
       - name: Build with Next.js
         run: npm run export
+        env:
+          NODE_ENV: production
       
       - name: List build output
         run: ls -la

@@ -6,8 +6,9 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: process.env.NODE_ENV === 'production' ? '/firesafe_x_website' : '',
-  assetPrefix: process.env.NODE_ENV === 'production' ? '/firesafe_x_website/' : '',
+  // Always set basePath and assetPrefix for GitHub Pages deployment
+  basePath: '/firesafe_x_website',
+  assetPrefix: '/firesafe_x_website/',
 };
 
 export default nextConfig;
