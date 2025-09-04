@@ -1,26 +1,79 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --brand-fire-start: #ff4d4f;
+  --brand-fire-end: #ff8a00;
+  --brand-tech: #00e5ff;
+  --surface: #101010;
+  --muted: #9ca3af;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-fire-500: var(--brand-fire-start);
+  --color-fire-400: var(--brand-fire-end);
+  --color-tech-500: var(--brand-tech);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+}
+
+/* Theme switching via data-theme */
+[data-theme="light"] {
+  --background: #fafafa;
+  --foreground: #0a0a0a;
+  --surface: #ffffff;
+  --muted: #374151;
+}
+
+[data-theme="dark"] {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --surface: #101010;
+  --muted: #9ca3af;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+::selection {
+  background: color(display-p3 1 0.4 0.2 / 0.6);
+  color: #ffffff;
+}
+
+.page-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 80% 10%, color(display-p3 1 0.3 0.2 / 0.15), transparent 60%),
+    radial-gradient(40% 40% at 20% 20%, color(display-p3 0 0.9 1 / 0.12), transparent 60%),
+    radial-gradient(30% 30% at 50% 90%, color(display-p3 1 0.6 0 / 0.08), transparent 60%);
+  z-index: 0;
+}
+
+.glass {
+  background: linear-gradient(180deg, color-mix(in oklab, var(--surface), transparent 65%), color-mix(in oklab, var(--surface), transparent 80%));
+  border: 1px solid color-mix(in oklab, var(--foreground), transparent 85%);
+  backdrop-filter: blur(10px) saturate(120%);
+}
+
+/* Theme-aware subtle border color */
+.soft-border {
+  border-color: color-mix(in oklab, var(--foreground), transparent 75%);
+}
+
+.soft-border-hover:hover {
+  border-color: color-mix(in oklab, var(--foreground), transparent 60%);
 }
