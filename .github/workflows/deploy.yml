@@ -48,6 +48,20 @@ jobs:
       - name: Build with Next.js
         run: npm run export
       
+      - name: List build output
+        run: ls -la
+      
+      - name: Check out directory
+        run: |
+          if [ -d "out" ]; then
+            echo "out directory exists"
+            ls -la out/
+          else
+            echo "out directory does not exist"
+            echo "Available directories:"
+            find . -type d -name "*out*" -o -name "*dist*" -o -name "*build*" | head -10
+          fi
+      
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
