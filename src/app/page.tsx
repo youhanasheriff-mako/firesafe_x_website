@@ -91,11 +91,11 @@ export default function Home() {
               Immersive. Realistic. Cost‑effective. Experience true readiness.
             </motion.p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <button onClick={() => setVideoOpen(true)} className="inline-flex items-center gap-2 rounded-lg px-4 py-2 bg-gradient-to-r from-[--color-fire-500] to-[--color-fire-400] text-white font-medium cursor-pointer shadow-sm">
-                <Play className="size-4 text-white" /> Watch Trailer
+              <button onClick={() => setVideoOpen(true)} className="inline-flex items-center gap-2 rounded-lg px-4 py-2 bg-gradient-to-r from-[--color-fire-500] to-[--color-fire-400] border soft-border soft-border-hover transition text-foreground font-medium cursor-pointer shadow-sm">
+                <Play className="size-4 text-foreground" /> Watch Trailer
               </button>
-              <a href="#contact" className="inline-flex items-center gap-2 rounded-lg px-4 py-2 border soft-border soft-border-hover transition cursor-pointer">
-                <Mail className="size-4" /> Get in Touch
+              <a href="#contact" className="inline-flex items-center gap-2 rounded-lg px-4 py-2 border soft-border soft-border-hover transition cursor-pointer text-foreground">
+                <Mail className="size-4 text-foreground" /> Get in Touch
               </a>
             </div>
           </div>
@@ -254,11 +254,11 @@ export default function Home() {
             <p className="mt-3 text-[--color-muted]">The Next Generation of Fire Safety Training.</p>
           </div>
           <div className="flex gap-3 md:justify-end">
-            <a href="#contact" className="inline-flex items-center gap-2 rounded-lg px-4 py-2 bg-gradient-to-r from-[--color-fire-500] to-[--color-fire-400] text-white font-medium cursor-pointer shadow-sm">
+            <a href="#contact" className="inline-flex items-center gap-2 rounded-lg px-4 py-2 bg-gradient-to-r from-[--color-fire-500] to-[--color-fire-400] border soft-border soft-border-hover transition text-foreground font-medium cursor-pointer shadow-sm">
               Request Demo
             </a>
-            <button onClick={() => setVideoOpen(true)} className="inline-flex items-center gap-2 rounded-lg px-4 py-2 border soft-border soft-border-hover transition cursor-pointer">
-              <Play className="size-4" /> Watch Trailer
+            <button onClick={() => setVideoOpen(true)} className="inline-flex items-center gap-2 rounded-lg px-4 py-2 border soft-border soft-border-hover transition cursor-pointer text-foreground bg-surface">
+              <Play className="size-4 text-foreground" /> Watch Trailer
             </button>
           </div>
         </div>
