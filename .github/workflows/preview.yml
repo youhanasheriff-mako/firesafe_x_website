@@ -16,7 +16,7 @@ concurrency:
 jobs:
   build-and-preview:
     environment:
-      name: github-pages-preview
+      name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
@@ -48,4 +48,6 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           preview: true
+          # Ensure preview deployments do not touch production
+          emit_telemetry: true
 
