@@ -13,43 +13,24 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-preview:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build static site
-        run: npm run build
-
-      - name: Install Surge.sh
-        run: npm install -g surge
-
-      - name: Deploy to Surge.sh
-        run: |
-          # Create a unique domain for this PR
-          DOMAIN="firesafex-pr-${{ github.event.number }}.surge.sh"
-          echo "Deploying to: https://$DOMAIN"
-          
-          # Deploy to surge
-          surge ./out $DOMAIN --token ${{ secrets.SURGE_TOKEN }}
-          
-          # Comment on PR with the preview URL
-          gh pr comment ${{ github.event.number }} --body "🚀 **Preview deployed!** 
-          
-          View your changes at: https://$DOMAIN
-          
-          This preview will be updated automatically when you push new commits to this PR."
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+          path: ./out
+      
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
