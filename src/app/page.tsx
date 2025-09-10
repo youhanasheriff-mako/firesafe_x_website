@@ -1,281 +1,422 @@
-"use client";
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Play, Mail, Shield, Wrench, Cog, Flame, Eye, Layers, Clock, Cpu, Users, GraduationCap, Building2, Factory, School, ShieldAlert, ChevronRight, Sparkles } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+'use client';
+import { useEffect, useState } from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
+import {
+  Search,
+  ShoppingBag,
+  ChevronRight,
+  Cpu,
+  Shield,
+  Zap,
+  Battery,
+  Wifi,
+  Gauge,
+  Play,
+} from 'lucide-react';
 
-function Section({ id, className = "", children }: { id?: string; className?: string; children: React.ReactNode }) {
+function Section({
+  id,
+  className = '',
+  children,
+}: {
+  id?: string;
+  className?: string;
+  children: React.ReactNode;
+}) {
   return (
-    <section id={id} className={`relative z-10 w-full ${className}`}>
+    <section id={id} className={`relative w-full ${className}`}>
       {children}
     </section>
   );
 }
 
-function FeatureCard({ icon: Icon, title, children }: { icon: LucideIcon; title: string; children: React.ReactNode }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.5 }}
-      className="glass rounded-xl p-5 border soft-border text-sm/6"
-    >
-      <div className="flex items-center gap-3 mb-2">
-        <Icon className="size-5 text-[--color-fire-400]" />
-        <h4 className="font-semibold text-base">{title}</h4>
-      </div>
-      <div className="text-[--color-muted]">{children}</div>
-    </motion.div>
-  );
-}
+function NavBar() {
+  const [scrolled, setScrolled] = useState(false);
 
-function BenefitCard({ icon: Icon, title, children }: { icon: LucideIcon; title: string; children: React.ReactNode }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.3 }}
-      transition={{ duration: 0.5 }}
-      className="rounded-xl p-5 border soft-border bg-[--color-surface]"
-    >
-      <div className="flex items-center gap-3 mb-2">
-        <Icon className="size-5 text-[--color-tech-500]" />
-        <h4 className="font-semibold text-base">{title}</h4>
-      </div>
-      <div className="text-[--color-muted]">{children}</div>
-    </motion.div>
-  );
-}
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-function VideoModal({ open, onClose }: { open: boolean; onClose: () => void }) {
-  if (!open) return null;
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4" onClick={onClose}>
-      <div className="w-full max-w-4xl aspect-video bg-black rounded-xl overflow-hidden border soft-border" onClick={(e) => e.stopPropagation()}>
-        <video className="w-full h-full object-cover" autoPlay muted loop controls poster="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=1600&auto=format&fit=crop">
-          <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
-        </video>
+    <header
+      role="navigation"
+      aria-label="Primary"
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors ${
+        scrolled
+          ? 'backdrop-blur bg-white/80 dark:bg-black/60 border-b soft-border text-white'
+          : 'bg-transparent text-white'
+      }`}
+    >
+      <div className="mx-auto max-w-[1400px] px-6 h-12 md:h-[48px] flex items-center justify-between">
+        <a
+          href="#hero"
+          className="text-sm font-semibold tracking-tight"
+          aria-label="FireSafeX home"
+        >
+          FireSafeX
+        </a>
+        <nav className="hidden md:flex items-center gap-6 text-sm">
+          <a className="hover:underline underline-offset-4" href="#overview">
+            Overview
+          </a>
+          <a className="hover:underline underline-offset-4" href="#features">
+            Features
+          </a>
+          <a className="hover:underline underline-offset-4" href="#gallery">
+            Gallery
+          </a>
+          <a className="hover:underline underline-offset-4" href="#tech">
+            Tech Specs
+          </a>
+          <a className="hover:underline underline-offset-4" href="#buy">
+            Buy
+          </a>
+        </nav>
+        <div className="flex items-center gap-4">
+          <button
+            aria-label="Search"
+            className="p-2 rounded-full hover:bg-white/10 md:hover:bg-black/5 dark:hover:bg-white/10 transition"
+          >
+            <Search className="size-4" />
+          </button>
+          <button
+            aria-label="Bag"
+            className="p-2 rounded-full hover:bg-white/10 md:hover:bg-black/5 dark:hover:bg-white/10 transition"
+          >
+            <ShoppingBag className="size-4" />
+          </button>
+        </div>
       </div>
-    </div>
+    </header>
   );
 }
 
 export default function Home() {
-  const [isVideoOpen, setVideoOpen] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  const [videoOpen, setVideoOpen] = useState(false);
+
+  const fadeUp = {
+    initial: { opacity: 0, y: 30 },
+    whileInView: prefersReducedMotion
+      ? { opacity: 1, y: 0 }
+      : { opacity: 1, y: 0 },
+    viewport: { once: true, amount: 0.2 },
+    transition: { duration: 0.7, ease: 'easeOut' },
+  } as const;
 
   return (
     <div className="relative">
-      <div className="page-bg" />
-
-      <VideoModal open={isVideoOpen} onClose={() => setVideoOpen(false)} />
+      <NavBar />
 
       {/* Hero */}
-      <Section id="hero" className="px-6 md:px-10 max-w-7xl mx-auto pt-20 md:pt-28 pb-16">
-        <div className="grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <motion.h1
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-4xl md:text-6xl font-extrabold tracking-tight"
+      <Section
+        id="hero"
+        className="relative min-h-[92vh] md:min-h-screen overflow-hidden"
+      >
+        {/* Background video (desktop) */}
+        <div aria-hidden className="absolute inset-0 hidden md:block">
+          <video
+            className="w-full h-full object-cover"
+            muted
+            loop
+            playsInline
+            autoPlay={!prefersReducedMotion}
+            poster="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=2400&auto=format&fit=crop"
+          >
+            <source
+              src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+              type="video/mp4"
+            />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/10" />
+        </div>
+        {/* Static image fallback (mobile) */}
+        <div className="absolute inset-0 md:hidden">
+          <img
+            src="https://picsum.photos/seed/firesafex-hero/1600/1200"
+            alt=""
+            aria-hidden
+            className="w-full h-full object-cover"
+            loading="eager"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/10" />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 mx-auto max-w-[1200px] px-6 pt-28 md:pt-40 pb-20">
+          <motion.h1
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
+            className="text-white text-[42px] sm:text-[56px] md:text-[80px] lg:text-[96px] font-semibold tracking-tight"
+          >
+            FireSafeX
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: 'easeOut', delay: 0.05 }}
+            className="mt-3 text-neutral-200 text-[18px] md:text-[20px] max-w-2xl"
+          >
+            Train smarter. Safer. Better.
+          </motion.p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <a
+              href="#overview"
+              className="inline-flex items-center rounded-lg px-5 py-2.5 bg-white/20 border border-white/30 text-white text-sm font-medium transition-colors hover:bg-white/40 shadow-sm"
             >
-              FireSafeX: The Future of Fire Safety Training
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="mt-4 text-lg text-[--color-muted]"
-            >
-              Immersive. Realistic. Cost‑effective. Experience true readiness.
-            </motion.p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <button onClick={() => setVideoOpen(true)} className="inline-flex items-center gap-2 rounded-lg px-4 py-2 bg-gradient-to-r from-[--color-fire-500] to-[--color-fire-400] border soft-border soft-border-hover transition text-foreground font-medium cursor-pointer shadow-sm">
-                <Play className="size-4 text-foreground" /> Watch Trailer
-              </button>
-              <a href="#contact" className="inline-flex items-center gap-2 rounded-lg px-4 py-2 border soft-border soft-border-hover transition cursor-pointer text-foreground">
-                <Mail className="size-4 text-foreground" /> Get in Touch
-              </a>
-            </div>
-          </div>
-
-          <div className="relative">
-            <div className="absolute -inset-6 rounded-3xl bg-gradient-to-tr from-[--color-fire-500]/30 to-[--color-tech-500]/20 blur-2xl" />
-            <div className="relative aspect-video w-full rounded-3xl overflow-hidden border soft-border">
-              <video
-                className="w-full h-full object-cover"
-                autoPlay
-                muted
-                loop
-                playsInline
-                poster="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=1600&auto=format&fit=crop"
-              >
-                <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4" />
-              </video>
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      {/* Problem */}
-      <Section id="problem" className="px-6 md:px-10 max-w-7xl mx-auto py-16 md:py-24">
-        <motion.h2 initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-2xl md:text-4xl font-bold">The Critical Gaps in Current Fire Safety Training</motion.h2>
-        <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <FeatureCard icon={Flame} title="Limited Real‑World Practice">Training rarely replicates the stress and nuance of real fires.</FeatureCard>
-          <FeatureCard icon={Wrench} title="Resource Intensiveness">Expensive consumables and heavy logistics drain budgets.</FeatureCard>
-          <FeatureCard icon={Cog} title="Tedious Setup & Management">Coordinating equipment and schedules slows programs.</FeatureCard>
-          <FeatureCard icon={Shield} title="Safety Constraints">Realistic practice is limited by risk and compliance.</FeatureCard>
-        </div>
-      </Section>
-
-      {/* Missing Link */}
-      <Section id="missing-link" className="px-6 md:px-10 max-w-7xl mx-auto py-16 md:py-24">
-        <div className="grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <h3 className="text-2xl md:text-4xl font-bold">Current solutions lack realism — <span className="text-[--color-fire-400]">FireSafeX</span> bridges the gap.</h3>
-            <p className="mt-4 text-[--color-muted]">We combine real equipment ergonomics with immersive virtual fires to deliver true skill transfer.</p>
-          </div>
-          <div className="relative">
-            <div className="aspect-video w-full rounded-2xl overflow-hidden border soft-border glass grid place-items-center">
-              <Sparkles className="size-10 text-[--color-tech-500]" />
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      {/* Solution */}
-      <Section id="solution" className="px-6 md:px-10 max-w-7xl mx-auto py-16 md:py-24">
-        <motion.h2 initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-2xl md:text-4xl font-bold">FireSafeX: Bridging the Reality Gap</motion.h2>
-        <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <FeatureCard icon={Layers} title="Realistic Equipment Handling">Train with a smart extinguisher that mirrors real weight and feel.</FeatureCard>
-          <FeatureCard icon={Flame} title="Immersive Virtual Fires">True-to-life spread, smoke, and visibility under pressure.</FeatureCard>
-          <FeatureCard icon={ShieldAlert} title="Zero Risk, Zero Waste">Practice without harm, emissions, or consumables.</FeatureCard>
-          <FeatureCard icon={Clock} title="Portable & Efficient">Setup anywhere in minutes for rapid sessions.</FeatureCard>
-        </div>
-      </Section>
-
-      {/* Core Components */}
-      <Section id="components" className="px-6 md:px-10 max-w-7xl mx-auto py-16 md:py-24">
-        <div className="grid md:grid-cols-2 gap-10 items-start">
-          <div className="glass rounded-2xl p-6 border soft-border">
-            <h3 className="text-xl md:text-2xl font-semibold">Smart Fire Extinguisher</h3>
-            <div className="mt-4">
-              <img
-                src="https://images.unsplash.com/photo-1602205764667-e4a893d394c7?q=80&w=1200&auto=format&fit=crop"
-                alt="Extinguisher placeholder"
-                className="w-full h-48 object-cover rounded-lg border soft-border"
-              />
-            </div>
-            <ul className="mt-4 space-y-2 text-[--color-muted] list-disc pl-5">
-              <li>Lightweight, balanced design</li>
-              <li>Haptic feedback and trigger sensors</li>
-              <li>Wireless, low-latency tracking</li>
-            </ul>
-          </div>
-          <div className="glass rounded-2xl p-6 border soft-border">
-            <h3 className="text-xl md:text-2xl font-semibold">Mixed Reality Application</h3>
-            <div className="mt-4">
-              <img
-                src="https://images.unsplash.com/photo-1529101091764-c3526daf38fe?q=80&w=1200&auto=format&fit=crop"
-                alt="Headset placeholder"
-                className="w-full h-48 object-cover rounded-lg border soft-border"
-              />
-            </div>
-            <ul className="mt-4 space-y-2 text-[--color-muted] list-disc pl-5">
-              <li>Immersive environments and realistic physics</li>
-              <li>AI guidance and adaptive scenarios</li>
-              <li>Performance scoring and debrief</li>
-            </ul>
-          </div>
-        </div>
-      </Section>
-
-      {/* Training Journey */}
-      <Section id="journey" className="px-6 md:px-10 max-w-7xl mx-auto py-16 md:py-24">
-        <h3 className="text-2xl md:text-4xl font-bold">Training Journey</h3>
-        <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <BenefitCard icon={GraduationCap} title="Learn">Understand equipment and best practices.</BenefitCard>
-          <BenefitCard icon={Flame} title="Simulate">Practice on varied fire types and scenarios.</BenefitCard>
-          <BenefitCard icon={Eye} title="Evaluate">Track performance and readiness.</BenefitCard>
-          <BenefitCard icon={Users} title="Ask the Expert">Live debrief and Q&A.
-          </BenefitCard>
-        </div>
-      </Section>
-
-      {/* Benefits */}
-      <Section id="benefits" className="px-6 md:px-10 max-w-7xl mx-auto py-16 md:py-24">
-        <motion.h2 initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-2xl md:text-4xl font-bold">Unlocking Transformative Benefits</motion.h2>
-        <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <BenefitCard icon={Flame} title="Unparalleled Realism">High-fidelity visuals and physics for real skill transfer.</BenefitCard>
-          <BenefitCard icon={Shield} title="Safe & Repeatable">Practice indefinitely without risk.</BenefitCard>
-          <BenefitCard icon={Cpu} title="Cost‑Efficient">No consumables or complex logistics.</BenefitCard>
-          <BenefitCard icon={Clock} title="Portable & Scalable">Train anywhere, anytime.</BenefitCard>
-          <BenefitCard icon={Sparkles} title="Engaging & Effective">Gamified, guided, and memorable.</BenefitCard>
-          <BenefitCard icon={Layers} title="Data‑Driven">Performance insights and analytics.</BenefitCard>
-        </div>
-      </Section>
-
-      {/* Who Benefits */}
-      <Section id="who" className="px-6 md:px-10 max-w-7xl mx-auto py-16 md:py-24">
-        <h3 className="text-2xl md:text-4xl font-bold">Who Benefits</h3>
-        <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm/6 text-[--color-muted]">
-          <div className="glass rounded-lg p-4 border soft-border">
-            <Building2 className="size-5 mb-2 text-foreground/80" /> Corporate Offices
-          </div>
-          <div className="glass rounded-lg p-4 border soft-border">
-            <Factory className="size-5 mb-2 text-foreground/80" /> Industrial Plants
-          </div>
-          <div className="glass rounded-lg p-4 border soft-border">
-            <School className="size-5 mb-2 text-foreground/80" /> Schools & Campuses
-          </div>
-          <div className="glass rounded-lg p-4 border soft-border">
-            <Shield className="size-5 mb-2 text-foreground/80" /> Fire Safety Orgs
-          </div>
-        </div>
-      </Section>
-
-      {/* Vision / Roadmap */}
-      <Section id="vision" className="px-6 md:px-10 max-w-7xl mx-auto py-16 md:py-24">
-        <h3 className="text-2xl md:text-4xl font-bold">Our Vision for the Future</h3>
-        <ol className="mt-6 space-y-4">
-          <li className="flex items-start gap-3"><ChevronRight className="mt-1 size-4 text-[--color-tech-500]" /> AI Analytics</li>
-          <li className="flex items-start gap-3"><ChevronRight className="mt-1 size-4 text-[--color-tech-500]" /> Multi‑user Drills</li>
-          <li className="flex items-start gap-3"><ChevronRight className="mt-1 size-4 text-[--color-tech-500]" /> Custom Scenarios</li>
-          <li className="flex items-start gap-3"><ChevronRight className="mt-1 size-4 text-[--color-tech-500]" /> Global Certification</li>
-        </ol>
-      </Section>
-
-      {/* Final CTA */}
-      <Section id="cta" className="px-6 md:px-10 max-w-7xl mx-auto py-16 md:py-24">
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h3 className="text-2xl md:text-4xl font-bold">FireSafeX = Real Equipment + Virtual Fire</h3>
-            <p className="mt-3 text-[--color-muted]">The Next Generation of Fire Safety Training.</p>
-          </div>
-          <div className="flex gap-3 md:justify-end">
-            <a href="#contact" className="inline-flex items-center gap-2 rounded-lg px-4 py-2 bg-gradient-to-r from-[--color-fire-500] to-[--color-fire-400] border soft-border soft-border-hover transition text-foreground font-medium cursor-pointer shadow-sm">
-              Request Demo
+              Buy
             </a>
-            <button onClick={() => setVideoOpen(true)} className="inline-flex items-center gap-2 rounded-lg px-4 py-2 border soft-border soft-border-hover transition cursor-pointer text-foreground bg-surface">
-              <Play className="size-4 text-foreground" /> Watch Trailer
+            <a
+              href="#features"
+              className="inline-flex items-center rounded-lg px-5 py-2.5 border border-white/30 text-white text-sm font-medium transition-colors hover:border-white/50"
+            >
+              Learn more
+            </a>
+            <button
+              onClick={() => setVideoOpen(true)}
+              className="inline-flex items-center gap-2 rounded-lg px-5 py-2.5 border border-white/30 text-white text-sm font-medium transition-colors hover:border-white/50"
+              aria-label="Watch trailer"
+            >
+              <Play className="size-4" /> Watch trailer
             </button>
           </div>
         </div>
       </Section>
 
-      {/* Footer */}
-      <footer id="contact" className="border-t soft-border mt-10">
-        <div className="px-6 md:px-10 max-w-7xl mx-auto py-10 text-sm/6 text-[--color-muted] flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
-          <div className="flex gap-6">
-            <a className="hover:text-foreground cursor-pointer" href="#about">About</a>
-            <a className="hover:text-foreground cursor-pointer" href="#contact">Contact</a>
-            <a className="hover:text-foreground cursor-pointer" href="#privacy">Privacy</a>
-            <a className="hover:text-foreground cursor-pointer" href="#terms">Terms</a>
+      {/* Overview / Feature highlight */}
+      <Section id="overview" className="mx-auto max-w-[1200px] px-6 py-[100px]">
+        <motion.h2
+          {...fadeUp}
+          className="text-[40px] md:text-[48px] font-semibold text-center"
+        >
+          Built for real readiness
+        </motion.h2>
+        <motion.p
+          {...fadeUp}
+          className="mt-4 text-[--color-muted] text-xl text-center max-w-3xl mx-auto"
+        >
+          High‑fidelity training that feels real. Zero risk. Zero waste.
+        </motion.p>
+        <motion.div
+          {...fadeUp}
+          className="mt-12 overflow-hidden rounded-3xl border soft-border"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=2400&auto=format&fit=crop"
+            alt="Immersive training experience"
+            className="w-full h-[360px] md:h-[520px] object-cover"
+            loading="lazy"
+            decoding="async"
+            sizes="(max-width: 768px) 100vw, 1200px"
+          />
+        </motion.div>
+      </Section>
+
+      {/* Grid features */}
+      <Section id="features" className="mx-auto max-w-[1200px] px-6 py-[100px]">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[
+            {
+              icon: Cpu,
+              title: 'True‑to‑life physics',
+              desc: 'Realistic spread, smoke, and dynamic visibility.',
+            },
+            {
+              icon: Shield,
+              title: 'Safe & repeatable',
+              desc: 'Practice endlessly without risk or emissions.',
+            },
+            {
+              icon: Battery,
+              title: 'All‑day training',
+              desc: 'Portable setup. Rapid sessions. Minimal logistics.',
+            },
+            {
+              icon: Wifi,
+              title: 'Wireless & precise',
+              desc: 'Low‑latency tracking and haptics for accuracy.',
+            },
+            {
+              icon: Zap,
+              title: 'Engaging by design',
+              desc: 'Guided drills, scoring, and memorable moments.',
+            },
+            {
+              icon: Gauge,
+              title: 'Data you can use',
+              desc: 'Performance insights and detailed debriefs.',
+            },
+          ].map(({ icon: Icon, title, desc }, i) => (
+            <motion.div
+              key={title}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: i * 0.05 }}
+              className="rounded-2xl border soft-border p-6 hover:shadow-sm transition-transform hover:-translate-y-1 bg-[--color-surface]"
+            >
+              <Icon className="size-5 mb-3 text-[--color-accent]" />
+              <h3 className="text-lg font-medium">{title}</h3>
+              <p className="mt-2 text-[--color-muted] text-sm">{desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Immersive gallery (edge-to-edge) */}
+      <Section id="gallery" className="py-[100px]">
+        <div className="space-y-16">
+          {[1, 2, 3].map(n => (
+            <div key={n} className="relative">
+              <img
+                src={`https://picsum.photos/seed/firesafex-gallery-${n}/2400/1200`}
+                alt={`Product gallery ${n}`}
+                className="w-full h-[360px] md:h-[560px] object-cover"
+                loading="lazy"
+                decoding="async"
+                sizes="100vw"
+              />
+              <div className="absolute inset-x-6 md:inset-x-10 bottom-6 md:bottom-10">
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.6 }}
+                  className="max-w-[1200px] mx-auto"
+                >
+                  <div className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-black/60 text-white backdrop-blur">
+                    <ChevronRight className="size-3" /> Scene {n}
+                  </div>
+                </motion.div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      {/* Technical specifications */}
+      <Section id="tech" className="mx-auto max-w-[1200px] px-6 py-[100px]">
+        <h2 className="text-[32px] md:text-[40px] font-semibold">
+          Technical Specifications
+        </h2>
+        <div className="mt-8 grid md:grid-cols-2 gap-8">
+          <dl className="space-y-3 text-sm">
+            <div className="flex justify-between border-b soft-border py-3">
+              <dt className="text-[--color-muted]">Tracking</dt>
+              <dd>6‑DoF wireless, sub‑10ms latency</dd>
+            </div>
+            <div className="flex justify-between border-b soft-border py-3">
+              <dt className="text-[--color-muted]">Haptics</dt>
+              <dd>Linear actuator feedback, adjustable</dd>
+            </div>
+            <div className="flex justify-between border-b soft-border py-3">
+              <dt className="text-[--color-muted]">Battery</dt>
+              <dd>Up to 8 hours per charge</dd>
+            </div>
+            <div className="flex justify-between border-b soft-border py-3">
+              <dt className="text-[--color-muted]">Connectivity</dt>
+              <dd>Wi‑Fi 6 / BLE 5.2</dd>
+            </div>
+          </dl>
+          <dl className="space-y-3 text-sm">
+            <div className="flex justify-between border-b soft-border py-3">
+              <dt className="text-[--color-muted]">Compatibility</dt>
+              <dd>Major MR headsets</dd>
+            </div>
+            <div className="flex justify-between border-b soft-border py-3">
+              <dt className="text-[--color-muted]">Materials</dt>
+              <dd>Aluminum alloy, soft‑touch composite</dd>
+            </div>
+            <div className="flex justify-between border-b soft-border py-3">
+              <dt className="text-[--color-muted]">Weight</dt>
+              <dd>1.2 kg</dd>
+            </div>
+            <div className="flex justify-between border-b soft-border py-3">
+              <dt className="text-[--color-muted]">Dimensions</dt>
+              <dd>450 × 120 × 90 mm</dd>
+            </div>
+          </dl>
+        </div>
+      </Section>
+
+      {/* Call to action */}
+      <Section id="buy" className="mx-auto max-w-[1200px] px-6 py-[120px]">
+        <div className="rounded-3xl border soft-border p-8 md:p-12 bg-[--color-surface] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <div>
+            <h3 className="text-[28px] md:text-[36px] font-semibold">
+              Experience FireSafeX
+            </h3>
+            <p className="mt-2 text-[--color-muted]">
+              Bring true readiness to your organization.
+            </p>
           </div>
-          <div className="opacity-70">© {new Date().getFullYear()} FireSafeX</div>
+          <div className="flex gap-3">
+            <a
+              href="#"
+              className="inline-flex items-center rounded-lg px-5 py-2.5 bg-[--color-accent] border soft-border text-black text-sm font-medium transition-transform hover:scale-[1.02] shadow-sm"
+            >
+              Buy now
+            </a>
+            <a
+              href="#tech"
+              className="inline-flex items-center rounded-lg px-5 py-2.5 border soft-border text-sm font-medium hover:shadow-sm"
+            >
+              Learn more
+            </a>
+          </div>
+        </div>
+      </Section>
+
+      {/* Footer */}
+      <footer className="border-t soft-border">
+        <div className="mx-auto max-w-[1200px] px-6 py-10 text-[13px] text-[--color-muted] flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="flex gap-6">
+            <a className="hover:underline underline-offset-4" href="#">
+              Privacy Policy
+            </a>
+            <a className="hover:underline underline-offset-4" href="#">
+              Terms of Use
+            </a>
+            <a className="hover:underline underline-offset-4" href="#">
+              Contact
+            </a>
+          </div>
+          <div className="opacity-70">
+            © {new Date().getFullYear()} FireSafeX. All rights reserved.
+          </div>
         </div>
       </footer>
+
+      {/* Simple non-intrusive trailer modal */}
+      {videoOpen && (
+        <div
+          className="fixed inset-0 z-[60] grid place-items-center bg-black/60 p-4"
+          onClick={() => setVideoOpen(false)}
+        >
+          <div
+            className="w-full max-w-4xl aspect-video bg-black rounded-xl overflow-hidden border soft-border"
+            onClick={e => e.stopPropagation()}
+          >
+            <video
+              className="w-full h-full object-cover"
+              autoPlay
+              muted
+              controls
+              playsInline
+              poster="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?q=80&w=1600&auto=format&fit=crop"
+            >
+              <source
+                src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
