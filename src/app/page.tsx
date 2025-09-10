@@ -52,7 +52,7 @@ function NavBar() {
       aria-label="Primary"
       className={`fixed top-0 left-0 right-0 z-50 transition-colors ${
         scrolled
-          ? 'backdrop-blur bg-white/80 dark:bg-black/60 border-b soft-border text-foreground'
+          ? 'backdrop-blur bg-white/80 dark:bg-black/60 border-b soft-border text-white'
           : 'bg-transparent text-white'
       }`}
     >
@@ -172,9 +172,9 @@ export default function Home() {
           <div className="mt-6 flex flex-wrap gap-3">
             <a
               href="#overview"
-              className="inline-flex items-center rounded-lg px-5 py-2.5 bg-[--color-accent] text-white text-sm font-medium transition-transform hover:scale-[1.02] shadow-sm"
+              className="inline-flex items-center rounded-lg px-5 py-2.5 bg-[--color-accent] border border-white/30 text-white text-sm font-medium transition-transform hover:scale-[1.02] shadow-sm hover:border-white/50"
             >
-              Buy
+              Request Demo
             </a>
             <a
               href="#features"
@@ -622,52 +622,73 @@ export default function Home() {
 
       {/* Vision */}
       <Section id="vision" className="mx-auto max-w-[1200px] px-6 py-[100px]">
-        <h2 className="text-[32px] md:text-[40px] font-semibold">
-          FireSafeX: Our Vision for the Future
-        </h2>
-        <p className="mt-3 text-[--color-muted] max-w-3xl">
-          We are committed to continuous innovation, expanding FireSafeX’s
-          capabilities to set new benchmarks in global fire safety education.
-        </p>
-        <div className="mt-6 space-y-4 text-sm">
-          <div className="flex items-start gap-3">
-            <ChevronRight className="mt-1 size-4 text-[--color-accent]" />
-            <div>
-              <div className="font-medium">Advanced AI Analytics</div>
-              <div className="text-[--color-muted]">
-                Deeper performance insights and personalized training
-                adjustments.
+        <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 className="text-[32px] md:text-[40px] font-semibold">
+              FireSafeX: Our Vision for the Future
+            </h2>
+            <p className="mt-3 text-[--color-muted] max-w-3xl">
+              We are committed to continuous innovation, expanding FireSafeX’s
+              capabilities to set new benchmarks in global fire safety
+              education.
+            </p>
+            <div className="mt-6 space-y-4 text-sm">
+              <div className="flex items-start gap-3">
+                <ChevronRight className="mt-1 size-4 text-[--color-accent]" />
+                <div>
+                  <div className="font-medium">Advanced AI Analytics</div>
+                  <div className="text-[--color-muted]">
+                    Deeper performance insights and personalized training
+                    adjustments.
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <ChevronRight className="mt-1 size-4 text-[--color-accent]" />
+                <div>
+                  <div className="font-medium">Multi‑User Drills</div>
+                  <div className="text-[--color-muted]">
+                    Collaborative scenarios where multiple trainees interact
+                    together.
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <ChevronRight className="mt-1 size-4 text-[--color-accent]" />
+                <div>
+                  <div className="font-medium">Custom Scenarios</div>
+                  <div className="text-[--color-muted]">
+                    Tailored modules for healthcare, aviation, logistics, and
+                    more.
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <ChevronRight className="mt-1 size-4 text-[--color-accent]" />
+                <div>
+                  <div className="font-medium">
+                    Global Certification Standard
+                  </div>
+                  <div className="text-[--color-muted]">
+                    Aiming to become the recognized standard for training
+                    worldwide.
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-          <div className="flex items-start gap-3">
-            <ChevronRight className="mt-1 size-4 text-[--color-accent]" />
-            <div>
-              <div className="font-medium">Multi‑User Drills</div>
-              <div className="text-[--color-muted]">
-                Collaborative scenarios where multiple trainees interact
-                together.
-              </div>
-            </div>
-          </div>
-          <div className="flex items-start gap-3">
-            <ChevronRight className="mt-1 size-4 text-[--color-accent]" />
-            <div>
-              <div className="font-medium">Custom Scenarios</div>
-              <div className="text-[--color-muted]">
-                Tailored modules for healthcare, aviation, logistics, and more.
-              </div>
-            </div>
-          </div>
-          <div className="flex items-start gap-3">
-            <ChevronRight className="mt-1 size-4 text-[--color-accent]" />
-            <div>
-              <div className="font-medium">Global Certification Standard</div>
-              <div className="text-[--color-muted]">
-                Aiming to become the recognized standard for training worldwide.
-              </div>
-            </div>
-          </div>
+          <motion.div
+            {...fadeUp}
+            className="rounded-2xl overflow-hidden border soft-border"
+          >
+            <img
+              src="https://picsum.photos/seed/missing-link/1200/800"
+              alt="Illustration representing the gap between virtual controllers and real fire extinguisher handling"
+              className="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          </motion.div>
         </div>
       </Section>
 
@@ -734,7 +755,7 @@ export default function Home() {
           <div className="flex gap-3">
             <a
               href="#"
-              className="inline-flex items-center rounded-lg px-5 py-2.5 bg-[--color-accent] text-white text-sm font-medium transition-transform hover:scale-[1.02] shadow-sm"
+              className="inline-flex items-center rounded-lg px-5 py-2.5 bg-[--color-accent] border soft-border text-black text-sm font-medium transition-transform hover:scale-[1.02] shadow-sm"
             >
               Request demo
             </a>
