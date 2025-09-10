@@ -6,9 +6,15 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  // Always set basePath and assetPrefix for GitHub Pages deployment
-  basePath: '/firesafe_x_website',
-  assetPrefix: '/firesafe_x_website/',
+  // Only set basePath and assetPrefix for production (GitHub Pages deployment)
+  ...(process.env.NODE_ENV === 'production' && {
+    basePath: '/firesafe_x_website',
+    assetPrefix: '/firesafe_x_website/',
+  }),
+  // Configure turbopack root to fix the warning
+  turbopack: {
+    root: __dirname,
+  },
 };
 
 export default nextConfig;
