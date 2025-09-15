@@ -271,32 +271,30 @@ export default function Home() {
               {...fadeUp}
               className="text-[28px] md:text-[36px] font-semibold"
             >
-              Identifying the Missing Link in Safety Solutions
+              The Critical Gap in Fire Safety Training
             </motion.h3>
             <motion.p
               {...fadeUp}
               className="mt-4 text-[--color-muted] max-w-3xl"
             >
-              Current virtual simulations primarily rely on generic controllers,
-              not actual fire extinguisher replicas. This fundamental flaw
-              prevents trainees from building the muscle memory and confidence
-              required to operate real equipment under pressure.
+              Current fire safety training suffers from a fundamental disconnect between theory and practice. 
+              Generic controllers and classroom simulations fail to prepare individuals for the reality of handling 
+              actual fire extinguishers in emergency situations.
             </motion.p>
             <motion.p
               {...fadeUp}
               className="mt-3 text-[--color-muted] max-w-3xl"
             >
-              Conversely, real‑world fire drills, while valuable, are inherently
-              costly and carry significant safety risks. The challenge lies in
-              bridging this gap: offering the realism of hands‑on experience
-              without the associated dangers and expenses.
+              Traditional training methods rely on outdated approaches that don&apos;t translate to real-world scenarios. 
+              Generic controllers lack the authentic feel, weight, and operation of actual fire extinguishers, 
+              preventing trainees from developing proper muscle memory and confidence.
             </motion.p>
             <motion.p
               {...fadeUp}
               className="mt-3 text-[--color-muted] max-w-3xl"
             >
-              Trainees struggle to gain genuine confidence when their training
-              tools don’t mimic real‑world equipment.
+              Meanwhile, live fire training, while realistic, poses significant safety risks and incurs high costs, 
+              making frequent practice sessions impractical for most organizations.
             </motion.p>
           </div>
           <motion.div
@@ -370,27 +368,50 @@ export default function Home() {
       {/* Immersive gallery (edge-to-edge) */}
       <Section id="gallery" className="py-[100px]">
         <div className="space-y-16">
-          {[1, 2, 3].map(n => (
-            <div key={n} className="relative">
+          {[
+            {
+              id: 1,
+              title: "Realistic Equipment Handling",
+              subtitle: "Functions like a real extinguisher",
+              description: "Experience authentic pin removal, squeeze grip, and aiming with haptic feedback that simulates recoil and discharge feel."
+            },
+            {
+              id: 2,
+              title: "Immersive Virtual Fires",
+              subtitle: "Fires appear in the real physical environment",
+              description: "Any space becomes a fire safety dojo with dynamic simulations and diverse fire emergencies for hands-on practice."
+            },
+            {
+              id: 3,
+              title: "Zero Risk, Zero Waste",
+              subtitle: "Safe, eco-friendly, no consumables",
+              description: "Completely safe and repeatable training with no risks, unlimited practice, and cost-efficient operations."
+            }
+          ].map(({ id, title, subtitle, description }) => (
+            <div key={id} className="relative">
               <img
-                src={`https://picsum.photos/seed/firesafex-gallery-${n}/2400/1200`}
-                alt={`Product gallery ${n}`}
+                src={`https://picsum.photos/seed/firesafex-gallery-${id}/2400/1200`}
+                alt={`Product gallery ${id}`}
                 className="w-full h-[360px] md:h-[560px] object-cover"
                 loading="lazy"
                 decoding="async"
                 sizes="100vw"
               />
-              <div className="absolute inset-x-6 md:inset-x-10 bottom-6 md:bottom-10">
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent" />
+              <div className="absolute inset-x-6 md:inset-x-10 top-1/2 -translate-y-1/2 max-w-[600px]">
                 <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.6 }}
-                  className="max-w-[1200px] mx-auto"
+                  transition={{ duration: 0.8 }}
+                  className="text-white"
                 >
-                  <div className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-black/60 text-white backdrop-blur">
-                    <ChevronRight className="size-3" /> Scene {n}
+                  <div className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium bg-[--color-accent]/20 text-white backdrop-blur mb-4">
+                    <ChevronRight className="size-3" /> Key Feature {id}
                   </div>
+                  <h3 className="text-[28px] md:text-[36px] font-semibold mb-2">{title}</h3>
+                  <p className="text-[16px] md:text-[18px] text-white/90 mb-3">{subtitle}</p>
+                  <p className="text-[14px] md:text-[16px] text-white/80 max-w-[500px] leading-relaxed">{description}</p>
                 </motion.div>
               </div>
             </div>
@@ -404,8 +425,12 @@ export default function Home() {
         className="mx-auto max-w-[1200px] px-6 py-[100px]"
       >
         <h2 className="text-[32px] md:text-[40px] font-semibold">
-          Deconstructing FireSafeX: The Core Components
+          Core Components: The Technology Behind FireSafeX
         </h2>
+        <p className="mt-3 text-[--color-muted] max-w-3xl">
+          FireSafeX combines cutting-edge hardware and software to deliver an unparalleled fire safety training experience. 
+          Our dual-component system bridges the gap between virtual simulation and real-world application.
+        </p>
         <div className="mt-8 grid md:grid-cols-2 gap-8 items-start">
           <div className="rounded-2xl border soft-border p-6 bg-[--color-surface]">
             <h3 className="text-xl font-medium">
@@ -422,25 +447,23 @@ export default function Home() {
             </div>
             <ul className="mt-4 space-y-2 text-[--color-muted] list-disc pl-5 text-sm">
               <li>
-                Lightweight & Portable: Easy to handle and transport for various
-                training locations.
+                <strong>Authentic Feel:</strong> Weighted design that replicates the heft and balance of a real fire extinguisher
               </li>
               <li>
-                Realistic Operation: Pin removal, squeeze grip, and aiming that
-                mirror a real extinguisher.
+                <strong>Realistic Operation:</strong> Pin removal, squeeze grip, and aiming mechanics that mirror actual extinguisher use
               </li>
               <li>
-                Haptic Feedback: Simulates recoil and discharge feel for
-                immersion.
+                <strong>Haptic Feedback:</strong> Advanced vibration system simulates recoil and discharge sensations for complete immersion
               </li>
               <li>
-                Wireless Connectivity: Seamless link with the MR headset for
-                real‑time interaction.
+                <strong>Smart Sensors:</strong> Precision tracking of grip pressure, aim direction, and operational technique
+              </li>
+              <li>
+                <strong>Wireless Connectivity:</strong> Seamless real-time communication with MR headset for instant response
               </li>
             </ul>
             <p className="mt-3 text-[--color-muted] text-sm">
-              It is portable, rechargeable, and acts as an independent
-              controller for unparalleled realism.
+              Portable, rechargeable, and designed for repeated use across diverse training scenarios without consumables or maintenance.
             </p>
           </div>
           <div className="rounded-2xl border soft-border p-6 bg-[--color-surface]">
@@ -458,25 +481,23 @@ export default function Home() {
             </div>
             <ul className="mt-4 space-y-2 text-[--color-muted] list-disc pl-5 text-sm">
               <li>
-                Immersive Environments: Transform any space into a realistic
-                fire safety dojo.
+                <strong>Spatial Fire Simulation:</strong> Virtual fires appear directly in your physical environment using advanced AR technology
               </li>
               <li>
-                Comprehensive Lessons: 3D interactive modules on fire classes,
-                safety protocols, and equipment.
+                <strong>Interactive 3D Lessons:</strong> Comprehensive modules covering fire classes, safety protocols, and equipment operation
               </li>
               <li>
-                Dynamic Simulations: Diverse fire scenarios for hands‑on
-                practice.
+                <strong>Dynamic Scenarios:</strong> Diverse emergency situations from kitchen fires to industrial incidents
               </li>
               <li>
-                AI‑Powered Guidance: Real‑time feedback and expert support
-                during training.
+                <strong>AI Fire Safety Expert:</strong> Conversational 3D character providing real-time guidance and instant answers
+              </li>
+              <li>
+                <strong>Performance Analytics:</strong> Detailed tracking of technique, response time, and decision-making accuracy
               </li>
             </ul>
             <p className="mt-3 text-[--color-muted] text-sm">
-              A conversational 3D character provides instant, voice‑based
-              answers to any fire safety queries.
+              Transform any space into a comprehensive fire safety training facility with unlimited scenarios and zero safety risks.
             </p>
           </div>
         </div>
@@ -488,42 +509,44 @@ export default function Home() {
           Your FireSafeX Training Journey
         </h2>
         <p className="mt-3 text-[--color-muted] max-w-3xl">
-          FireSafeX guides trainees through a structured, progressive learning
-          path, from foundational knowledge to real‑time crisis response.
+          Experience a comprehensive 4-step training methodology that transforms theoretical knowledge into practical expertise. 
+          From foundational learning to real-world application, each step builds upon the previous to ensure complete fire safety mastery.
         </p>
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="rounded-2xl border soft-border p-6 bg-[--color-surface]">
             <GraduationCap className="size-5 mb-3 text-[--color-accent]" />
-            <h3 className="font-medium">Step 1: Learn</h3>
+            <h3 className="font-medium">Step 1: Learn the Fundamentals</h3>
             <p className="mt-2 text-sm text-[--color-muted]">
-              Engage with interactive 3D lessons covering fire safety
-              fundamentals, equipment types, and emergency procedures.
-              Understand the theory before applying it.
+              Master fire safety theory through immersive 3D lessons. Learn about different fire classes, 
+              extinguisher types, safety protocols, and emergency procedures. Build a solid foundation 
+              of knowledge before moving to practical application.
             </p>
           </div>
           <div className="rounded-2xl border soft-border p-6 bg-[--color-surface]">
             <Flame className="size-5 mb-3 text-[--color-accent]" />
-            <h3 className="font-medium">Step 2: Simulate</h3>
+            <h3 className="font-medium">Step 2: Practice in Virtual Reality</h3>
             <p className="mt-2 text-sm text-[--color-muted]">
-              Step into realistic mixed reality environments. Confront dynamic
-              fire emergencies and apply learned techniques with the smart
-              extinguisher replica.
+              Enter immersive mixed reality environments where virtual fires appear in your real space. 
+              Practice with the smart extinguisher replica, experiencing authentic pin removal, grip, 
+              and aiming while confronting diverse fire scenarios safely.
             </p>
           </div>
           <div className="rounded-2xl border soft-border p-6 bg-[--color-surface]">
             <BarChart3 className="size-5 mb-3 text-[--color-accent]" />
-            <h3 className="font-medium">Step 3: Evaluate</h3>
+            <h3 className="font-medium">Step 3: Receive Real-Time Feedback</h3>
             <p className="mt-2 text-sm text-[--color-muted]">
-              Receive instant, data‑driven feedback. Detailed reports highlight
-              strengths and areas for improvement.
+              Get instant, AI-powered analysis of your performance. Detailed reports track your technique, 
+              response time, decision-making accuracy, and equipment handling. Identify strengths and 
+              areas for improvement with personalized recommendations.
             </p>
           </div>
           <div className="rounded-2xl border soft-border p-6 bg-[--color-surface]">
             <Bot className="size-5 mb-3 text-[--color-accent]" />
-            <h3 className="font-medium">Step 4: Ask the Expert</h3>
+            <h3 className="font-medium">Step 4: Consult the AI Expert</h3>
             <p className="mt-2 text-sm text-[--color-muted]">
-              Leverage the integrated AI instructor for personalized guidance.
-              Get answers to specific questions and refine your technique.
+              Access our conversational 3D AI fire safety expert for instant guidance. Ask specific questions, 
+              clarify procedures, and receive expert advice tailored to your training needs. 
+              Continuous learning support ensures mastery of fire safety skills.
             </p>
           </div>
         </div>
@@ -532,38 +555,38 @@ export default function Home() {
       {/* Benefits */}
       <Section id="benefits" className="mx-auto max-w-[1200px] px-6 py-[100px]">
         <h2 className="text-[32px] md:text-[40px] font-semibold">
-          FireSafeX: Unlocking Transformative Benefits
+          Why Choose FireSafeX?
         </h2>
         <p className="mt-3 text-[--color-muted] max-w-3xl">
-          Our innovative system delivers advantages over traditional training
-          methods, ensuring superior preparedness and efficiency.
+          Experience the future of fire safety training with revolutionary benefits that transform 
+          how organizations prepare their teams for emergency situations.
         </p>
         <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             {
-              icon: Sparkles,
-              title: 'Unparalleled Realism',
-              desc: 'Hands‑on practice with haptic feedback builds true muscle memory.',
-            },
-            {
               icon: Shield,
-              title: 'Completely Safe & Repeatable',
-              desc: 'Train without injury or property damage — practice endlessly.',
+              title: 'Enhanced Safety',
+              desc: 'Train in completely safe environments without risk of injury, property damage, or exposure to real fire hazards.',
             },
             {
               icon: Gauge,
-              title: 'Cost‑Efficient Operations',
-              desc: 'Eliminates consumables, maintenance, and complex setup costs.',
+              title: 'Cost-Effective Training',
+              desc: 'Eliminate ongoing costs of consumables, maintenance, and facility requirements while scaling to unlimited trainees.',
             },
             {
-              icon: Battery,
-              title: 'Highly Portable & Scalable',
-              desc: 'Deploy anywhere, anytime, for any number of trainees.',
+              icon: Sparkles,
+              title: 'Realistic Experience',
+              desc: 'Experience authentic fire extinguisher operation with haptic feedback and true-to-life equipment handling.',
             },
             {
               icon: Zap,
-              title: 'Engaging & Effective Learning',
-              desc: 'Immersive MR experiences improve retention and make learning enjoyable.',
+              title: 'Improved Learning Outcomes',
+              desc: 'Achieve better knowledge retention and skill development through immersive, hands-on mixed reality training.',
+            },
+            {
+              icon: Battery,
+              title: 'Accessibility & Convenience',
+              desc: 'Deploy training anywhere, anytime, without weather dependencies or complex logistics.',
             },
           ].map(({ icon: Icon, title, desc }) => (
             <div
@@ -584,37 +607,40 @@ export default function Home() {
           Who Benefits from FireSafeX?
         </h2>
         <p className="mt-3 text-[--color-muted] max-w-3xl">
-          FireSafeX is designed for any organization committed to elevating fire
-          safety and preparedness.
+          FireSafeX transforms fire safety training across diverse sectors, providing tailored solutions 
+          for organizations committed to protecting their people and assets.
         </p>
         <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
           <div className="rounded-2xl border soft-border p-6 bg-[--color-surface]">
             <Building2 className="size-5 mb-3 text-[--color-accent]" />
             <h3 className="font-medium">Corporate Offices</h3>
             <p className="mt-2 text-[--color-muted]">
-              Equip every employee with confidence and skills for safer
-              workplaces.
+              Empower employees with practical fire safety skills, ensuring workplace safety 
+              compliance and building confidence in emergency response.
             </p>
           </div>
           <div className="rounded-2xl border soft-border p-6 bg-[--color-surface]">
             <Factory className="size-5 mb-3 text-[--color-accent]" />
-            <h3 className="font-medium">Industrial Plants</h3>
+            <h3 className="font-medium">Industrial Facilities</h3>
             <p className="mt-2 text-[--color-muted]">
-              Prepare staff for high‑risk hazards and rapid, precise response.
+              Train workers in high-risk environments with realistic scenarios, 
+              preparing them for rapid and precise emergency response.
             </p>
           </div>
           <div className="rounded-2xl border soft-border p-6 bg-[--color-surface]">
             <School className="size-5 mb-3 text-[--color-accent]" />
-            <h3 className="font-medium">Schools & Universities</h3>
+            <h3 className="font-medium">Educational Institutions</h3>
             <p className="mt-2 text-[--color-muted]">
-              Educate students and staff for swift, orderly emergency actions.
+              Provide comprehensive fire safety education for students and staff, 
+              creating safer learning environments through practical training.
             </p>
           </div>
           <div className="rounded-2xl border soft-border p-6 bg-[--color-surface]">
             <Shield className="size-5 mb-3 text-[--color-accent]" />
             <h3 className="font-medium">Fire Safety Organizations</h3>
             <p className="mt-2 text-[--color-muted]">
-              Standardize effective programs across teams and locations.
+              Enhance training programs with cutting-edge technology, 
+              standardizing effective fire safety education across all locations.
             </p>
           </div>
         </div>
@@ -625,12 +651,11 @@ export default function Home() {
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div>
             <h2 className="text-[32px] md:text-[40px] font-semibold">
-              FireSafeX: Our Vision for the Future
+              The Future of Fire Safety Training
             </h2>
             <p className="mt-3 text-[--color-muted] max-w-3xl">
-              We are committed to continuous innovation, expanding FireSafeX’s
-              capabilities to set new benchmarks in global fire safety
-              education.
+              Our roadmap focuses on continuous innovation, expanding FireSafeX capabilities 
+              to revolutionize fire safety education worldwide and set new industry standards.
             </p>
             <div className="mt-6 space-y-4 text-sm">
               <div className="flex items-start gap-3">
@@ -638,28 +663,28 @@ export default function Home() {
                 <div>
                   <div className="font-medium">Advanced AI Analytics</div>
                   <div className="text-[--color-muted]">
-                    Deeper performance insights and personalized training
-                    adjustments.
+                    Enhanced performance tracking with predictive analytics and 
+                    personalized learning paths for optimal skill development.
                   </div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <ChevronRight className="mt-1 size-4 text-[--color-accent]" />
                 <div>
-                  <div className="font-medium">Multi‑User Drills</div>
+                  <div className="font-medium">Multi-User Collaborative Training</div>
                   <div className="text-[--color-muted]">
-                    Collaborative scenarios where multiple trainees interact
-                    together.
+                    Team-based emergency scenarios enabling coordinated response 
+                    training and leadership skill development.
                   </div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <ChevronRight className="mt-1 size-4 text-[--color-accent]" />
                 <div>
-                  <div className="font-medium">Custom Scenarios</div>
+                  <div className="font-medium">Industry-Specific Scenarios</div>
                   <div className="text-[--color-muted]">
-                    Tailored modules for healthcare, aviation, logistics, and
-                    more.
+                    Specialized training modules for healthcare, aviation, manufacturing, 
+                    and other high-risk industries with unique fire safety requirements.
                   </div>
                 </div>
               </div>
@@ -667,11 +692,11 @@ export default function Home() {
                 <ChevronRight className="mt-1 size-4 text-[--color-accent]" />
                 <div>
                   <div className="font-medium">
-                    Global Certification Standard
+                    Global Certification Standards
                   </div>
                   <div className="text-[--color-muted]">
-                    Aiming to become the recognized standard for training
-                    worldwide.
+                    Establishing FireSafeX as the worldwide benchmark for 
+                    fire safety training certification and competency assessment.
                   </div>
                 </div>
               </div>
